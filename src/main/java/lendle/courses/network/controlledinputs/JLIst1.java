@@ -6,10 +6,15 @@
 package lendle.courses.network.controlledinputs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ListCellRenderer;
 import javax.swing.WindowConstants;
 
 /**
@@ -28,11 +33,41 @@ public class JLIst1 {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         //create JList and add it to a JScrollPane
+        
         JScrollPane scrollPane=new JScrollPane();
+        Vector v = new Vector();
+        v.add(100);
+        v.add(new Object());
+        JList list = new JList(v);
+        list.setCellRenderer(new ListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel bt = new JLabel();
+                if(value instanceof String){
+                    bt.setText(""+value);
+                }else if(value instanceof Integer){
+                    bt.setText(""+value);
+                }else{
+                    bt.setText(""+value.hashCode());
+                }
+                if(isSelected){
+                    bt.setOpaque(true);
+                    bt.setBackground(Color.red);
+                }               
+                //To change body of generated methods, choose Tools | Templates.
+                return bt;
+            }
+        });
+        /*JList list = new JList(new String[]{"a","b","c","a","b","c","a","b","c","a","b","c"});*/
+        scrollPane.getViewport().add(list);
         //////////////////////////////////////////
         frame.add(scrollPane);
         
         frame.setVisible(true);
+    }
+
+    static void updateUI() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
